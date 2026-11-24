@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shadow Dungeon</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/game.js" type="module"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div>
+        <p class="section-label">浏览器版</p>
+        <h1>Shadow Dungeon</h1>
+      </div>
+      <span class="room" id="room" hidden></span>
+    </header>
+    <div class="layout">
+      <section class="stage" aria-label="游戏区域">
+        <canvas id="game" width="1024" height="768" tabindex="0" aria-label="地牢画面" aria-describedby="controls">
+          浏览器需要支持 Canvas 才能显示游戏。
+        </canvas>
+        <div class="overlay" id="overlay">
+          <p id="status" role="status">连接 Java 后端…</p>
+          <button id="retry" type="button" hidden>重新开始</button>
+        </div>
+      </section>
+      <aside id="controls" aria-labelledby="controls-title">
+        <h2 id="controls-title">操作指南</h2>
+        <dl>
+          <div><dt>移动</dt><dd><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></dd></div>
+          <div><dt>选择机器人</dt><dd><kbd>R</kbd></dd></div>
+          <div><dt>选择陆战队员</dt><dd><kbd>M</kbd></dd></div>
+          <div><dt>瞄准 / 射击</dt><dd>鼠标 / 左键</dd></div>
+          <div><dt>开启宝箱</dt><dd><kbd>K</kbd></dd></div>
+          <div><dt>打开 / 关闭商店</dt><dd><kbd>Space</kbd></dd></div>
+          <div><dt>商店内购买生命</dt><dd><kbd>E</kbd></dd></div>
+          <div><dt>商店内升级武器</dt><dd><kbd>L</kbd></dd></div>
+          <div><dt>商店内重开</dt><dd><kbd>P</kbd></dd></div>
+          <div><dt>重开区内重开</dt><dd><kbd>Enter</kbd></dd></div>
+        </dl>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

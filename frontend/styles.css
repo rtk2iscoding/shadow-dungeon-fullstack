@@ -1,0 +1,41 @@
+@font-face {
+  font-family: Wheaton;
+  src: url("/res/wheaton.otf") format("opentype");
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  color: #eee6dc;
+  background: #141018;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; }
+.shell { width: min(1280px, 100%); margin: auto; padding: 36px 32px; }
+.masthead { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.section-label { color: #e4b484; font-size: .8rem; margin: 0 0 6px; }
+h1 { font-size: clamp(1.9rem, 5vw, 3.3rem); line-height: 1.05; margin: 0; letter-spacing: -.045em; }
+.room { color: #eed8bf; background: #29202d; border: 1px solid #514052; border-radius: 6px; white-space: nowrap; padding: 7px 11px; font-size: .83rem; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 232px; align-items: start; gap: 20px; }
+.stage { position: relative; background: #09080b; border: 1px solid #514052; border-radius: 9px; }
+canvas { display: block; width: 100%; height: auto; border-radius: 8px; cursor: crosshair; }
+canvas:focus-visible, button:focus-visible { outline: 2px solid #ebbb8c; outline-offset: 3px; }
+.overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #110e16e8; border-radius: inherit; text-align: center; padding: 16px; }
+button { font: inherit; cursor: pointer; color: #211623; background: #ebbb8c; border: 0; border-radius: 6px; padding: 9px 14px; }
+aside { border-radius: 9px; padding: 17px; background: #201923; border: 1px solid #443647; }
+h2 { font-size: 1rem; margin: 0 0 12px; }
+dl { margin: 0; font-size: .82rem; }
+dl div { display: flex; justify-content: space-between; align-items: center; min-height: 37px; gap: 6px; border-top: 1px solid #3a303d; }
+dt { color: #cfc1cf; }
+dd { margin: 0; white-space: nowrap; }
+kbd { background: #302637; border: 1px solid #58455b; border-radius: 4px; display: inline-block; min-width: 19px; padding: 1px 4px; text-align: center; }
+
+@media (max-width: 850px) {
+  .shell { padding: 25px 16px; }
+  .layout { grid-template-columns: 1fr; }
+  dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); column-gap: 18px; }
+}
