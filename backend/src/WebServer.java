@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 public final class WebServer {
     private static final long SESSION_TIMEOUT = Duration.ofMinutes(30).toNanos();
     private static final int SESSION_LIMIT = 64;
+    private final Path frontend = Path.of(System.getenv().getOrDefault("FRONTEND_DIR", "frontend"));
     private final Map<String, Session> sessions = new HashMap<>();
     private final Properties settings = IOUtils.readPropertiesFile("res/app.properties");
     private final Properties messages = IOUtils.readPropertiesFile("res/message.properties");
@@ -29,13 +30,15 @@ public final class WebServer {
     }
 
     public static void main(String[] args) throws IOException {
-        int port = args.length == 0 ? 8080 : Integer.parseInt(args[0]);
+        String portSetting = args.length == 0 ? System.getenv().getOrDefault("PORT", "8080") : args[0];
+        int port = Integer.parseInt(portSetting);
+        String bindAddress = System.getenv().getOrDefault("BIND_ADDRESS", "127.0.0.1");
         var app = new WebServer();
-        var server = HttpServer.create(new InetSocketAddress("127.0.0.1", port), 0);
+        var server = HttpServer.create(new InetSocketAddress(bindAddress, port), 0);
         server.createContext("/", app::handle);
         server.setExecutor(Executors.newFixedThreadPool(4));
         server.start();
-        System.out.println("Shadow Dungeon · http://127.0.0.1:" + server.getAddress().getPort());
+        System.out.println("Shadow Dungeon · http://" + bindAddress + ":" + server.getAddress().getPort());
     }
 
     private void handle(HttpExchange exchange) throws IOException {
@@ -125,9 +128,15 @@ public final class WebServer {
 
     private void serveFile(HttpExchange exchange, String path) throws IOException {
         Path file = switch (path) {
-            case "/" -> Path.of("frontend/index.html");
-            case "/game.js", "/styles.css" -> Path.of("frontend" + path);
-            default -> path.matches("/res/[a-z_]+\\.(png|otf)") ? Path.of(path.substring(1)) : null;
+            case "/" -> frontend.resolve("index.html");
+            case "/game.js", "/styles.css" -> frontend.resolve(path.substring(1));
+            default -> {
+                if (path.matches("/res/[a-z_]+\\.(png|otf)")) yield Path.of(path.substring(1));
+                if (path.matches("/assets/[a-zA-Z0-9_-]+\\.(js|css|otf)")) {
+                    yield frontend.resolve(path.substring(1));
+                }
+                yield null;
+            }
         };
         if (file == null || !Files.isRegularFile(file)) {
             send(exchange, 404, "Page not found");

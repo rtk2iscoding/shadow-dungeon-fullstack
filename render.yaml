@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: shadow-dungeon-fullstack
+    runtime: docker
+    plan: free
+    branch: main
+    healthCheckPath: /

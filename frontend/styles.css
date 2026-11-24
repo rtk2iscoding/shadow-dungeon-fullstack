@@ -1,6 +1,6 @@
 @font-face {
   font-family: Wheaton;
-  src: url("/res/wheaton.otf") format("opentype");
+  src: url("../res/wheaton.otf") format("opentype");
   font-display: swap;
 }
 
