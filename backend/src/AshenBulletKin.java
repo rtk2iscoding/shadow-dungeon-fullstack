@@ -2,7 +2,8 @@ import java.util.Vector;
 /**
  * Shooting fireballs to player's position,have higher firing rate
  */
-public class AshenBulletKin implements Damageable,Rewardable{
+public class AshenBulletKin implements Damageable,Rewardable, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private final Image image;
     private double health;

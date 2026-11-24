@@ -4,9 +4,10 @@ import java.util.Vector;
 /**
  * Main game class that manages initialising the rooms and moving the player between rooms
  */
-public class ShadowDungeon {
-    private final Properties gameProps;
-    private final Properties messageProps;
+public class ShadowDungeon implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+    private transient Properties gameProps;
+    private transient Properties messageProps;
 
     private String currRoomName;
     private PrepRoom prepRoom;
@@ -57,6 +58,11 @@ public class ShadowDungeon {
             Frame.discard();
             CURRENT.remove();
         }
+    }
+
+    void restoreConfiguration(Properties gameProps, Properties messageProps) {
+        this.gameProps = gameProps;
+        this.messageProps = messageProps;
     }
 
     public void resetGameState(Properties gameProps) {

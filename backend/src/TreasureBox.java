@@ -1,7 +1,8 @@
 /**
  * Chest that can be unlocked by the player to earn coins
  */
-public class TreasureBox {
+public class TreasureBox implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private final Image image;
     private final double coinValue;

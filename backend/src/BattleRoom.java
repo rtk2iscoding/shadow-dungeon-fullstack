@@ -5,7 +5,8 @@ import java.util.Vector;
 /**
  * Room with doors that are locked until the plaer defeats all enemies
  */
-public class BattleRoom {
+public class BattleRoom implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final WeaponManage wm;
     private Player player;
     private Door primaryDoor;

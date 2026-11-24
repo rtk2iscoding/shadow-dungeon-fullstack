@@ -4,7 +4,8 @@ import java.awt.*;
  * Renders the robot sprite at a fixed position and supports hit-testing
  * with the player (for selection or interaction).
  */
-public class TheRobot {
+public class TheRobot implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private static final Image sprite = new Image("res/robot_sprite.png");
     boolean choose;

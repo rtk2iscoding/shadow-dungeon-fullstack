@@ -3,7 +3,8 @@ import java.util.Vector;
 /**
  * Player character that can move around and between rooms, defeat enemies, collect coins
  */
-public class Player {
+public class Player implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Point prevPosition;
     private Point position;
     private Image currImage;

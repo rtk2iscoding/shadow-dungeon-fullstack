@@ -23,7 +23,7 @@
         </canvas>
         <div class="overlay" id="overlay">
           <p id="status" role="status">加载中…</p>
-          <button id="retry" type="button" hidden>重新开始</button>
+          <button id="retry" type="button" hidden>重新连接</button>
         </div>
       </section>
       <aside id="controls" aria-labelledby="controls-title">
@@ -40,6 +40,10 @@
           <div><dt>商店内重开</dt><dd><kbd>P</kbd></dd></div>
           <div><dt>重开区内重开</dt><dd><kbd>Enter</kbd></dd></div>
         </dl>
+        <div id="save-controls" hidden>
+          <button id="save" type="button">保存进度</button>
+          <small id="save-status" role="status"></small>
+        </div>
       </aside>
     </div>
   </main>

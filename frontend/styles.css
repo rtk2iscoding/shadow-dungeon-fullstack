@@ -39,3 +39,6 @@ kbd { background: #302637; border: 1px solid #58455b; border-radius: 4px; displa
   .layout { grid-template-columns: 1fr; }
   dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); column-gap: 18px; }
 }
+
+#save-controls { margin-top: 12px; }
+#save-status { display: block; margin-top: 5px; }

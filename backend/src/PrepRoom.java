@@ -5,7 +5,8 @@ import java.util.Vector;
 /**
  * Room where the game starts
  */
-public class PrepRoom {
+public class PrepRoom implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Player player;
     private Door door;
     private RestartArea restartArea;

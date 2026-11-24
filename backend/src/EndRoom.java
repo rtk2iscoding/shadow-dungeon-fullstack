@@ -5,7 +5,8 @@ import java.util.Vector;
 /**
  * Room where the game ends when the player either completes all rooms or dies
  */
-public class EndRoom {
+public class EndRoom implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Player player;
     private Door door;

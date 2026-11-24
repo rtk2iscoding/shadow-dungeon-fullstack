@@ -3,7 +3,8 @@
  * Renders the marine sprite at a fixed position and supports hit-testing
  * with the player (for selection or interaction).
  */
-public class TheMarine {
+public class TheMarine implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private static final Image sprite = new Image("res/marine_sprite.png");
     boolean choose = false;

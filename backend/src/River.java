@@ -2,7 +2,8 @@
  * Hazard that applies damage for as long as the player is on it
  * Marine character is immune
  */
-public class River{
+public class River implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private final Image image;
     private final double damagePerFrame;

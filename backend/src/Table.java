@@ -1,7 +1,8 @@
 /**
  * destruct by the player to earn coins
  */
-public class Table implements Obstacle{
+public class Table implements Obstacle, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Image image;
     private final Point position;
     private boolean dead = false;

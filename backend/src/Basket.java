@@ -1,7 +1,8 @@
 /**
  * destruct by the player to earn coins
  */
-public class Basket implements Obstacle,Rewardable {
+public class Basket implements Obstacle,Rewardable, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Image image;
     private final Point position;
     private final double coinValue;

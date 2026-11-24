@@ -3,7 +3,8 @@ import java.util.Vector;
  * Shoot from enemies that attack player
  */
 
-public class FireBall implements Moveable, Obstacle{
+public class FireBall implements Moveable, Obstacle, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Point prevPosition;
     private Point position;
     private final double speed ;
@@ -27,6 +28,10 @@ public class FireBall implements Moveable, Obstacle{
         double currX = position.x;
         double currY = position.y;
         rect = sprite.getBoundingBoxAt(new Point(currX, currY));
+        if (!Double.isFinite(currX) || !Double.isFinite(currY)
+                || !rect.intersects(new Rectangle(0, 0, Window.getWidth(), Window.getHeight()))) {
+            destruct();
+        }
     }
     @Override
     public void move(double vx, double vy) {

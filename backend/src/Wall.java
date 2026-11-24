@@ -1,7 +1,8 @@
 /**
  * Obstacle that blocks the player from moving through it
  */
-public class Wall implements Obstacle{
+public class Wall implements Obstacle, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private final Image image;
     private boolean dead = false;

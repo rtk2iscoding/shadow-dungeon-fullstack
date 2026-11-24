@@ -4,6 +4,17 @@ const overlay = document.querySelector('#overlay');
 const status = document.querySelector('#status');
 const retry = document.querySelector('#retry');
 const room = document.querySelector('#room');
+const saveControls = document.querySelector('#save-controls');
+const saveButton = document.querySelector('#save');
+const saveStatus = document.querySelector('#save-status');
+const storageKey = 'shadow-dungeon-save-id';
+let rememberedSession;
+
+try {
+  rememberedSession = localStorage.getItem(storageKey);
+} catch {
+  // A browser that blocks storage can still start a game.
+}
 
 const keyCodes = ['KeyA', 'KeyD', 'KeyW', 'KeyS', 'KeyM', 'KeyR',
   'Space', 'Enter', 'KeyP', 'KeyE', 'KeyL', 'KeyK'];
@@ -112,6 +123,9 @@ async function update(now) {
       signal: AbortSignal.timeout(5000),
     });
     if (!response.ok) throw new Error('Frame request failed');
+    if (response.headers.has('X-Game-Save-Failed')) {
+      saveStatus.textContent = '自动保存失败，请重试保存。';
+    }
     await drawFrame(await response.text());
     if (!overlay.hidden) {
       overlay.hidden = true;
@@ -125,6 +139,7 @@ async function update(now) {
 
 function showError(message) {
   session = null;
+  saveControls.hidden = true;
   releaseInput();
   status.textContent = message;
   overlay.hidden = false;
@@ -138,24 +153,60 @@ async function start() {
   status.textContent = '加载中…';
   overlay.hidden = false;
   try {
-    const response = await fetch('/api/session', {
-      method: 'POST',
-      signal: AbortSignal.timeout(5000),
-    });
+    let response = await openSession(rememberedSession);
+    if (rememberedSession && [400, 404].includes(response.status)) {
+      response = await openSession();
+    }
     if (!response.ok) throw new Error('Session request failed');
-    const [id, width, height] = (await response.text()).split('\n');
+    const [id, width, height, persistent] = (await response.text()).split('\n');
     canvas.width = Number(width);
     canvas.height = Number(height);
     mouseX = canvas.width / 2;
     mouseY = canvas.height / 2;
     await document.fonts.load('24px Wheaton').catch(() => []);
     session = id;
+    rememberedSession = id;
+    try {
+      localStorage.setItem(storageKey, id);
+    } catch {
+      // Keep the current session playable without browser storage.
+    }
+    saveControls.hidden = persistent !== 'true';
+    saveStatus.textContent = '';
     lastTick = performance.now() - tickDuration;
     requestAnimationFrame(update);
   } catch {
     showError('无法连接 Java 后端。请确认服务已经启动。');
   }
 }
+
+function openSession(id) {
+  return fetch('/api/session', {
+    method: 'POST',
+    headers: id ? { 'X-Game-Session': id } : {},
+    signal: AbortSignal.timeout(5000),
+  });
+}
+
+saveButton.addEventListener('click', async () => {
+  if (!session) return;
+  saveButton.disabled = true;
+  saveStatus.textContent = '保存中…';
+  try {
+    const response = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'X-Game-Session': session },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!response.ok) throw new Error('Save request failed');
+    saveStatus.textContent = '已保存';
+  } catch {
+    saveStatus.textContent = '保存失败，请重试。';
+  } finally {
+    saveButton.disabled = false;
+    if (session) canvas.focus({ preventScroll: true });
+  }
+});
 
 retry.addEventListener('click', start);
 start();

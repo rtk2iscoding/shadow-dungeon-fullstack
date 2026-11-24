@@ -1,7 +1,8 @@
 /**
  * Store: in-game purchasing UI and logic
  */
-public class Store {
+public class Store implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point positon ;
     private boolean available;
     private final Image sprite = new Image("res/store.png");

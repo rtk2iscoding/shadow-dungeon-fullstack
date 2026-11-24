@@ -5,8 +5,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.imageio.ImageIO;
 
-final class Image {
-    private record Size(int width, int height) {}
+final class Image implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+    private record Size(int width, int height) implements java.io.Serializable {}
     private static final Map<String, Size> SIZES = new ConcurrentHashMap<>();
 
     private final String path;

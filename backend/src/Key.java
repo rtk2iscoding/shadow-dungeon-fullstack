@@ -1,7 +1,8 @@
 /**
  * Collect that can unlock treasure boxes to earn coins
  */
-public class Key {
+public class Key implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Image image;
     private Point position;
     private boolean appear;

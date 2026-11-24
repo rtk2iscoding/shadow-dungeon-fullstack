@@ -5,7 +5,8 @@ import java.util.Vector;
  * Manages player bullets and enemy fireballs: spawning, updating,
  * collision handling, rendering, and cleanup.
  */
-public class WeaponManage {
+public class WeaponManage implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     List<Bullet> bullets;
     List<FireBall> fireBalls;
     /** Creates empty bullet and fireball pools. */
@@ -88,6 +89,7 @@ public class WeaponManage {
             }
             fireBall.draw();
         }
+        fireBalls.removeIf(FireBall::isDead);
     }
     /** Draws all active bullets and fireballs. */
     public void draw(){
@@ -121,6 +123,7 @@ public class WeaponManage {
             fireball.update();
             fireball.draw();
         }
+        fireBalls.removeIf(FireBall::isDead);
     }
 
 

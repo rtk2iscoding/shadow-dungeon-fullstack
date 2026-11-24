@@ -1,7 +1,8 @@
 /**
  * Area in Prep or End Room where the player can trigger a game reset
  */
-public class RestartArea {
+public class RestartArea implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private final Image image;
 

@@ -1,7 +1,8 @@
 /**
  * Door which can be locked or unlocked, allows the player to move to the room it's connected to
  */
-public class Door implements Obstacle {
+public class Door implements Obstacle, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private Image image;
     public final String toRoomName;

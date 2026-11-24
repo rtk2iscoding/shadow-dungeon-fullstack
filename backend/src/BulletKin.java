@@ -3,7 +3,8 @@ import java.util.Vector;
 /**
  * Shooting fireballs to player's position
  */
-public class BulletKin implements Damageable,Rewardable{
+public class BulletKin implements Damageable,Rewardable, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final Point position;
     private final Image image;
     private boolean active = false; // only true when the Battle Room has been activated

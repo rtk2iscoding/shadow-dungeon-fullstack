@@ -6,7 +6,8 @@ import static java.lang.Double.parseDouble;
 /**
  * Enemy that been attacked when the bullets overlap with it ,becoming key after defeated.
  */
-public class KeyBulletKin implements Damageable{
+public class KeyBulletKin implements Damageable, java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private Point position;
     private final Image image;
     private boolean active = false; /** True only while the battle room is active. */
