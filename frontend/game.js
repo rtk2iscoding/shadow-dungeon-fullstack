@@ -135,7 +135,7 @@ function showError(message) {
 async function start() {
   releaseInput();
   retry.hidden = true;
-  status.textContent = '连接 Java 后端…';
+  status.textContent = '加载中…';
   overlay.hidden = false;
   try {
     const response = await fetch('/api/session', {
